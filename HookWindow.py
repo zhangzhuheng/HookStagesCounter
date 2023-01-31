@@ -21,7 +21,7 @@ class HookWindow:
         self._root_y = int(self._root.winfo_screenheight() * 0.4)
         self._root_width = int(self._root.winfo_screenwidth() * 0.02)
         self._root_height = int(self._root_width * 10)
-        print(f'{self._root_width=}, {self._root_height=}')
+        # print(f'{self._root_x=}, {self._root_y=}, {self._root_width=}, {self._root_height=}')
         self._root.geometry(f'{self._root_width}x{self._root_height}+{self._root_x}+{self._root_y}')
 
         frame = Frame(self._root, bg='black')
@@ -37,8 +37,26 @@ class HookWindow:
         self.counter = [0, 0, 0, 0]
         self.layout_hook()
 
-        self._root.after(10, self._set_window)
-        self._root.after(100, self._read_queue)
+    def layout_hook(self):
+        for i in range(len(self.hooks)):
+            self.hooks[i][0].place(anchor=constants.W, relx=0, rely=(0.1 + 0.25 * i))
+            self.hooks[i][1].place(anchor=constants.W, relx=0.5, rely=(0.1 + 0.25 * i))
+
+    def reset_hook(self):
+        for l1, l2 in self.hooks:
+            l1.config(image=''), l2.config(image='')
+
+    def show_hook(self, n: int):
+        if self.counter[n] < 2:
+            # print(f"show player_{n} hook {self.counter[n]} to {self.counter[n] + 1}")
+            self.hooks[n][self.counter[n]].config(image=self.hook_img)
+            self.counter[n] += 1
+
+    def hide_hook(self, n: int):
+        if self.counter[n] > 0:
+            # print(f"hide player_{n} hook {self.counter[n]} to {self.counter[n] - 1}")
+            self.counter[n] -= 1
+            self.hooks[n][self.counter[n]].config(image='')
 
     def _set_window(self):
         """
@@ -53,29 +71,7 @@ class HookWindow:
         self._root.withdraw()
         self._root.after(10, self._root.deiconify)
 
-    def layout_hook(self):
-        for i in range(len(self.hooks)):
-            self.hooks[i][0].place(anchor=constants.W, relx=0, rely=(0.1 + 0.25 * i))
-            self.hooks[i][1].place(anchor=constants.W, relx=0.5, rely=(0.1 + 0.25 * i))
-
-    def reset_hook(self):
-        for l1, l2 in self.hooks:
-            l1.config(image=''), l2.config(image='')
-
-    def show_hook(self, n: int):
-        if self.counter[n] < 2:
-            print(f'show player_{n} hook {self.counter[n]} to {self.counter[n] + 1}')
-            self.hooks[n][self.counter[n]].config(image=self.hook_img)
-            self.counter[n] += 1
-
-    def hide_hook(self, n: int):
-        if self.counter[n] > 0:
-            print(f'hide player_{n} hook {self.counter[n]} to {self.counter[n] - 1}')
-            self.counter[n] -= 1
-            self.hooks[n][self.counter[n]].config(image='')
-
-    def _read_queue(self):
-        """ Check if there is something in the queue. """
+    def _messages_cb(self):
         try:
             event = self._messages.get_nowait()
             match event.name:
@@ -98,17 +94,23 @@ class HookWindow:
         except Empty:
             pass
         finally:
-            self._root.after(100, self._read_queue)
+            self._root.after(10, self._messages_cb)
 
     def run(self):
+        self._root.after(10, self._set_window)
+        self._root.after(10, self._messages_cb)
         self._root.mainloop()
 
 
 if __name__ == "__main__":
     window = HookWindow(Queue())
     window.show_hook(0)
+    window.show_hook(0)
+    window.show_hook(1)
     window.show_hook(1)
     window.show_hook(2)
+    window.show_hook(2)
+    window.show_hook(3)
     window.show_hook(3)
     window.run()
 
