@@ -100,6 +100,7 @@ class HookWindow:
         self.size_label[1].place_forget()
 
     def reset_hook(self):
+        self.counter = [0, 0, 0, 0]
         for l1, l2 in self.hooks:
             l1.config(image=''), l2.config(image='')
 
