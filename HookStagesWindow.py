@@ -49,8 +49,8 @@ class HookStagesWindow:
         self.size_label[0].bind("<B1-Motion>", self._zoom_call)
         self.size_label[1].bind("<B1-Motion>", self._zoom_call)
 
-        self._root.bind('<KeyPress-Alt_L>', self._alt_press_call)
-        self._root.bind('<KeyRelease-Alt_L>', self._alt_release_call)
+        self._root.bind('<FocusIn>', self._alt_press_call)
+        self._root.bind('<FocusOut>', self._alt_release_call)
         self._root.bind('<ButtonPress-1>', self._start_drag)
 
     def layout_hook(self):
