@@ -1,17 +1,29 @@
-# HookStageCounter
+# HookStageCounter([中文](/README_zh.md))
 
-A counter that records the number of times Survivors are hooked for Killer in the game `Dead by Daylight`.
+`Dead by Daylight`'s **Killers** track hooks stages of **Survivors** in games.
 
-## Features
+*“Nowadays, They can have a better tunneling!”*
 
-* Hotkey for increasing count: `1`, `2`, `3`, `4`
-* Hotkey for reducing count: `Shift+1`, `Shift+2`, `Shift+3`, `Shift+4`
-* Hotkey for reset counter: `0`
-* Focus and hold down `Alt`, to move the window or set the window size.
+## How to use
+
+* Stage growth: `1`, `2`, `3`, `4`
+
+  *"Yes, you did a good job, probably."*
+* Stage decline: `Shift+1`, `Shift+2`, `Shift+3`, `Shift+4`
+
+  *"Something must be wrong. Something!"*
+* State reset: `0`
+
+  *"Death is Not an Escape."*
+* Focus the window to move the window or set the window size.
+
+  *"maybe. This stupid thing should look better."*
 
 ## Roadmap & Future Developments
 
-- [ ] Use image recognition for automatic and reset counting.(Need to adapt screen resolution and shaders)
+- [ ] Use image recognition for automatic and reset counting(Need to adapt screen resolution and shaders).
+
+  *"Damn it, it's a little difficult. "*
 
 ## Credits
 
