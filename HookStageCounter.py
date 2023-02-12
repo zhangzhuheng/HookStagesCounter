@@ -1,4 +1,4 @@
-from HookStagesWindow import HookStagesWindow
+from HookStageWindow import HookStagesWindow
 from keyboard import on_press_key
 
 if __name__ == '__main__':
