@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run pyinstaller
       run: |
-        python -m pyinstaller HookStageCounter.spec
+        python -m PyInstaller HookStageCounter.spec
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
       with:
